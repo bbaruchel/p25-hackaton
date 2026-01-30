@@ -26,4 +26,59 @@ class Goo():
     def dist(self, g) :
         return ((g.x-self.center_x)**2+(g.y-self.center_y)**2)**0.5
     def distplat(self, platform) :
-        return 0.1
+        if self.x > platform.x + platform.width/2 : 
+          if self.y > platform.y + platform.height/2 :
+            ux = x - platform.x - platform.width
+            uy = y - platform.y - platform.height
+            if ux > uy :
+              if uy < 0 :
+                return abs(ux)
+              else :
+                return sqrt(ux**2+uy**2)
+            else :
+              if ux < 0 :
+                return abs(uy)
+              else :
+                return sqrt(ux**2+uy**2)
+          else    
+            ux = x - platform.x - platform.width
+            uy = y - platform.y
+            if ux > (-uy) :
+              if ux < 0 :
+                return abs(ux)
+              else :
+                return sqrt(ux**2+uy**2)
+            else :
+              if (-uy) < 0 :
+                return abs(uy)
+              else :
+                return sqrt(ux**2+uy**2)
+        else :
+          if self.y > platform.y + platform.height/2 :
+            ux = x - platform.x - platform.width
+            uy = y - platform.y - platform.height
+            if (-ux) > uy :
+              if uy < 0 :
+                return abs(ux)
+              else :
+                return sqrt(ux**2+uy**2)
+            else :
+              if (-ux) < 0 :
+                return abs(uy)
+              else :
+                return sqrt(ux**2+uy**2)
+          else    
+            ux = x - platform.x - platform.width
+            uy = y - platform.y
+            if (-ux) > (-uy) :
+              if (-ux) < 0 :
+                return abs(ux)
+              else :
+                return sqrt(ux**2+uy**2)
+            else :
+              if (-uy) < 0 :
+                return abs(uy)
+              else :
+                return sqrt(ux**2+uy**2)
+
+

@@ -71,8 +71,10 @@ class Display:
     def new_goo(self) -> None:
         mouse_x, mouse_y = pygame.mouse.get_pos()
         new_goo = Goo(len(self.goos), position_x=mouse_x/PIXELS_PER_METER, position_y=mouse_y/PIXELS_PER_METER,goos = self.goos, platforms=self.platforms)
-        self.goos.append(new_goo)
+        if len(new_goo.voisins) + len(new_goo.platforms) > 0 :
+            self.goos.append(new_goo)
 
+    
     def handle_events(self) -> bool:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -81,9 +83,13 @@ class Display:
                 self.new_goo()
         if self.win():
             print("You win!")
-            return False
+            self._ending()
+        
+            self._wait_for_quit()
+            return False 
+
         return True
-    
+
     def win(self) : 
       visite = [False]*len(self.goos)
       for g in self.goos :
@@ -103,8 +109,31 @@ class Display:
           if hasstart and  hasend : 
             return True
       return False
-
     
+    def _wait_for_quit(self):
+        waiting = True
+        while waiting:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    waiting = False
+            pygame.time.wait(100)
 
+    def _ending(self) -> None:
+        self._clear()
 
+        font = pygame.font.SysFont(None, 72)
+        text = font.render("You Win!", True, (0, 128, 0))
+        text_rect = text.get_rect(center=(self.width // 2, self.height // 2))
+        self.screen.blit(text, text_rect)
 
+        # Draw the final state
+        for p in self.platforms :
+            self._add_platform(p)
+        
+        for g in self.goos :
+            self._add_goo(g)
+        
+        self._draw_spring()
+
+        pygame.display.flip()
+        self.clock.tick(60)

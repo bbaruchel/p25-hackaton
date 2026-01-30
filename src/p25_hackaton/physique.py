@@ -23,6 +23,11 @@ def force_rappel_goo(goo1: Goo, x,  y,ressort : Spring): #on considère que c'es
     f = -k*(d-l0)
     return (f*(goo1.x-x)/d,f*(goo1.y-y)/d)
 
+#force de frottement visqueux pour atténuer les oscillations
+def force_frottement(goo1 : Goo):
+    mu = 0.1
+    return (-mu*goo1.vx,-mu*goo1.vy)
+
 def force(goo1 : Goo): 
     "Renvoie la résultante"
     (fx,fy)=force_gravitation(goo1)
@@ -33,6 +38,11 @@ def force(goo1 : Goo):
     for (h,r) in goo1.platforms:
         fx+=force_rappel_goo(goo1,r.x0,r.y0, r)[0]
         fy+=force_rappel_goo(goo1,r.x0,r.y0, r)[1]
+    
+    (fxt,fyt)=force_frottement(goo1)
+    fx+=fxt
+    fy+=fyt
+    
     return (fx,fy)
 
 def forces(goos):
@@ -42,15 +52,23 @@ def forces(goos):
     return F
 
 
-def verlet_integration_bis(goos, delta_t):
-    A = np.array(forces(goos))/masse_goo
+""" def verlet_integration_bis(goos, delta_t):
+   A = np.array(forces(goos))/masse_goo
     #Mise à jour
-    for i in range(len(goos)): 
-        goos[i].x, goos[i].y = goos[i].x +goos[i].vx * delta_t + (1/2)*A[i][0]*(delta_t)**2, goos[i].y + goos[i].vy * delta_t + (1/2)*A[i][1]*(delta_t)**2
+   for i in range(len(goos)): 
+        goos[i].x, goos[i].y = goos[i].x +0.9*(goos[i].vx * delta_t + (1/2)*A[i][0]*(delta_t)**2), goos[i].y + 0.9*(goos[i].vy * delta_t + (1/2)*A[i][1]*(delta_t)**2)
     n_A = np.array(forces(goos))/masse_goo
     for i in range(len(goos)):
-        goos[i].vx ,goos[i].vy = goos[i].vx + delta_t*(A[i][0] + n_A[i][0])/2, goos[i].vy + delta_t*(A[i][1] + n_A[i][1])/2
-    
+        goos[i].vx ,goos[i].vy = goos[i].vx + 0.9*(delta_t*(A[i][0] + n_A[i][0])/2), goos[i].vy + 0.9*(delta_t*(A[i][1] + n_A[i][1])/2)
+     """
+
+def euler_integration(goos, delta_t):
+    A = np.array(forces(goos))/masse_goo
+    for i in range(len(goos)):
+        goos[i].vx ,goos[i].vy = goos[i].vx + delta_t*A[i][0], goos[i].vy + delta_t*A[i][1]
+        goos[i].x, goos[i].y = goos[i].x + goos[i].vx * delta_t, goos[i].y + goos[i].vy * delta_t
+
+
 def spring_update(goos) : 
   visite = [False]*len(goos)
   for g in goos :

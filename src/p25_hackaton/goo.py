@@ -23,7 +23,8 @@ class Goo():
         for p in platforms :
              d = p.distplat(self.x,self.y)
              if d <= self.dminp :
-                 r = Spring(d,d)
+                 x0,y0 = p.proj(self.x,self.y)
+                 r = Spring(d,d,x0,y0)
                  self.platforms.append((p,r))
     def dist(self, g) :
         return ((g.x-self.x)**2+(g.y-self.y)**2)**0.5

@@ -60,7 +60,7 @@ def spring_update(goos) :
         if not visite[s.id] :
           visite[s.id] = True
           for (p,r) in s.platforms :
-            x,y = p.proj(s.x,s.y)
+            x,y = r.x0,r.y0
             r.distance = ((s.x-x)**2+(s.y-y)**2)**(1/2)
           for (v,r) in s.voisins :
             r.distance = ((s.x-v.x)**2+(s.y-v.y)**2)**(1/2)

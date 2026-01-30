@@ -12,17 +12,16 @@ class Goo():
         self.platforms = []
         for g in goos :
              d = self.dist(g)
-             if d <= self.dmin :
-                 voisins.append((g,d))
+             if d <= self.dming :
+                 self.voisins.append((g,d))
         for p in platforms :
              d = self.distplat(p)
-             if d <= self.dmin :
-                 voisins.append((p,d))
-    def dist(g) :
-        return sqrt((g.x-self.x)**2+(g.y-self.y)**2)
-    def distplat(platform) :
+             if d <= self.dminp :
+                 self.voisins.append((p,d))
+    def dist(self, g) :
+        return ((g.x-self.center_x)**2+(g.y-self.center_y)**2)**0.5
+    def distplat(self, platform) :
         return 0.1
-
     
 
     

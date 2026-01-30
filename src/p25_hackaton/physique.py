@@ -2,7 +2,7 @@ from .goo import Goo
 
 import numpy as np
 #gravité 
-g=0.49
+g=-0.49
 
 #distance attachement goo
 l=0.01

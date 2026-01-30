@@ -1,11 +1,11 @@
-from platform import Platform
-from spring import Spring
+from .platform import Platform
+from .spring import Spring
 
 class Goo():
-    def __init__(self, position_x: float, position_y: float, speed: float = 1.0, rayon:float= 0.01, masse: float= 0.4):
+    def __init__(self, position_x: float, position_y: float,goos : list["Goo"], platforms : list[Platform], speed: float = 1.0, rayon:float= 0.01, masse: float= 0.4):
         
-        self.center_x = position_x
-        self.center_y = position_y
+        self.x = position_x
+        self.y = position_y
         self.speed = speed
         self.rayon = rayon
         self.masse = masse
@@ -20,11 +20,11 @@ class Goo():
                  self.voisins.append((g,r))
         for p in platforms :
              d = self.distplat(p)
-             if d <= self.dmin :
+             if d <= self.dminp :
                  r = Spring(d,d)
-                 voisins.append((p,r))
+                 self.platforms.append((p,r))
     def dist(self, g) :
-        return ((g.x-self.center_x)**2+(g.y-self.center_y)**2)**0.5
+        return ((g.x-self.x)**2+(g.y-self.y)**2)**0.5
     def distplat(self, platform) :
         if self.x > platform.x + platform.width/2 : 
           if self.y > platform.y + platform.height/2 :

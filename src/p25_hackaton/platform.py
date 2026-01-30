@@ -6,7 +6,7 @@ class Platform:
         self.width = width
         self.height = height
         self.range = range
-    def distplat(platform) :
-        bx = platform.x + platform.width/2
-        by = platform.y + platform.height/2
-        return sqrt((bx-x)**2+(by-self.y)**2)
+    def distplat(self) :
+        bx = self.x + self.width/2
+        by = self.y + self.height/2
+        return ((bx-self.x)**2+(by-self.y)**2)**0.5

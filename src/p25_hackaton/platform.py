@@ -24,7 +24,7 @@ class Platform:
                 return (x,self.y+self.height)
               else :
                 return (self.x+self.width,self.y+self.height)
-          else    
+          else :  
             ux = x - self.x - self.width
             uy = y - self.y
             if ux > (-uy) :
@@ -51,14 +51,14 @@ class Platform:
                 return (x,self.y+self.height)
               else :
                 return (self.x,self.y+self.height)
-          else    
+          else :
             ux = x - self.x - self.width
             uy = y - self.y
             if (-ux) > (-uy) :
               if (-ux) < 0 :
                 return (self.x,y)
               else :
-                return (self.x+self.y)
+                return (self.x,self.y)
             else :
               if (-uy) < 0 :
                 return (x,self.y)

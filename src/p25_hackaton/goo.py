@@ -1,4 +1,5 @@
 from platform import Platform
+from spring import Spring
 
 class Goo():
     def __init__(self, goos, platforms, position_x: float, position_y: float, speed: float = 1.0, rayon:float= 0.01, masse: float= 0.4):
@@ -19,11 +20,10 @@ class Goo():
         for p in platforms :
              d = self.distplat(p)
              if d <= self.dmin :
-                 voisins.append((p,d))
+                 r = Spring(d,d)
+                 voisins.append((p,r))
     def dist(g) :
         return sqrt((g.x-self.x)**2+(g.y-self.y)**2)
-    def distplat(platform) :
-        return 0.1
 
     
 

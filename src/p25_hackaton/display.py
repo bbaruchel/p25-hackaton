@@ -47,7 +47,7 @@ class Display:
 
     
     def update(self) -> None:
-        verlet_integration_bis(self.goos, 0.016)
+        verlet_integration_bis(self.goos,0.016)
         spring_update(self.goos)
 
         self._clear()

@@ -1,26 +1,27 @@
 from .goo import Goo
 from .platform import Platform
+from .spring import Spring
 
 import numpy as np
 #gravité 
-g=-0.49
+g= - 0.49
 
 #distance attachement goo
 l=0.01
 masse_goo=0.4
-k=100
 
 def force_gravitation(goo: Goo):
-    return (0,-goo.masse*g)
+    return (0.,-goo.masse*g)
 
 
-def force_rappel_goo(goo1: Goo, x,  y,ressort): #on considère que c'est le deuxieme qui attire
+def force_rappel_goo(goo1: Goo, x,  y,ressort : Spring): #on considère que c'est le deuxieme qui attire
     d = ressort.distance
     if d == 0:
         return(0.,0.)
-    l0=0.01
+    k = ressort.k
+    l0=ressort.l_0
     f = -k*(d-l0)
-    return (f/d*(goo1.x-x),f/d*(goo1.y-y))
+    return (f*(goo1.x-x)/d,f*(goo1.y-y)/d)
 
 def force(goo1 : Goo): 
     "Renvoie la résultante"
@@ -30,8 +31,8 @@ def force(goo1 : Goo):
         fy+=force_rappel_goo(goo1,g.x,g.y, r)[1]
     
     for (h,r) in goo1.platforms:
-        fx+=force_rappel_goo(goo1,h.x,h.y, r)[0]
-        fy+=force_rappel_goo(goo1,h.x,h.y, r)[1]
+        fx+=force_rappel_goo(goo1,r.x0,r.y0, r)[0]
+        fy+=force_rappel_goo(goo1,r.x0,r.y0, r)[1]
     return (fx,fy)
 
 def forces(goos):
@@ -45,10 +46,10 @@ def verlet_integration_bis(goos, delta_t):
     A = np.array(forces(goos))/masse_goo
     #Mise à jour
     for i in range(len(goos)): 
-        goos[i].x,goos[i].y = goos[i].x +goos[i].vx * delta_t + 1/2*A[i][0]*delta_t**2, goos[i].y + goos[i].vy * delta_t + 1/2*A[i][1]*delta_t**2
+        goos[i].x, goos[i].y = goos[i].x +goos[i].vx * delta_t + (1/2)*A[i][0]*(delta_t)**2, goos[i].y + goos[i].vy * delta_t + (1/2)*A[i][1]*(delta_t)**2
     n_A = np.array(forces(goos))/masse_goo
     for i in range(len(goos)):
-        goos[i].vx,goos[i].vy = goos[i].vx + (A[i][0] + n_A[i][0])/2*delta_t, goos[i].vy + (A[i][1] + n_A[i][1])/2*delta_t
+        goos[i].vx ,goos[i].vy = goos[i].vx + delta_t*(A[i][0] + n_A[i][0])/2, goos[i].vy + delta_t*(A[i][1] + n_A[i][1])/2
     
 def spring_update(goos) : 
   visite = [False]*len(goos)

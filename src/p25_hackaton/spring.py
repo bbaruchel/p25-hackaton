@@ -7,5 +7,5 @@ class Spring():
         self.y0 = y0
 
     def force(self) -> float:
-        return self.k * (self.distance - self.l_0)
+        return -self.k * (self.distance - self.l_0)
 

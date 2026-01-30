@@ -1,7 +1,7 @@
 import pygame 
 from .platform import Platform
 from .goo import Goo
-from .physique import spring_update, euler_integration
+from .physique import spring_update, euler_integration, update_collision
 
 ## Coeff d'échelle pour l'affichage (en raisonne en mètre pour la modélisation physique)
 PIXELS_PER_METER = 1000
@@ -50,6 +50,11 @@ class Display:
         euler_integration(self.goos,0.016)
         spring_update(self.goos)
 
+        for g in self.goos:
+            for p in self.platforms:
+                update_collision(g, p)
+
+
         self._clear()
 
         for p in self.platforms :
@@ -59,6 +64,7 @@ class Display:
             self._add_goo(g)
         
         self._draw_spring()
+
 
         pygame.display.flip()
         self.clock.tick(60)

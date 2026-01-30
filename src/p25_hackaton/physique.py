@@ -42,7 +42,7 @@ def force(goo1 : Goo):
     (fxt,fyt)=force_frottement(goo1)
     fx+=fxt
     fy+=fyt
-    
+
     return (fx,fy)
 
 def forces(goos):
@@ -85,16 +85,33 @@ def spring_update(goos) :
             r.distance = ((s.x-v.x)**2+(s.y-v.y)**2)**(1/2)
             todo.append(v)
 
-def update_collision(goos: list["Goo"], platforms: list["Platform"]):
-   for g in goos:
-    for p in platforms :
-       if p.collision(g.x,g.y):
-          g.x, g.y = p.proj(g.x, g.y)
+def update_collision(goo: Goo, platform: Platform):
+    collided = platform.contact(goo.x, goo.y)
 
-      
+    if not collided:
+        return
 
+    dl = goo.x - platform.x
+    dr = (platform.x + platform.width) - goo.x
+    dt = goo.y - platform.y
+    db = (platform.y + platform.height) - goo.y
 
+    dmin = min(dl, dr, dt, db)
 
+    if dmin == dl:
+        goo.x = platform.x - goo.rayon*0.5
+        goo.vx = - goo.vx*0
+    elif dmin == dr:
+        goo.x = platform.x + platform.width + goo.rayon*0.5
+        goo.vx = - goo.vx*0
+    elif dmin == dt:
+        goo.y = platform.y - goo.rayon*0.5
+        goo.vy = - goo.vy*0
+    else:  # dmin == db 
+        goo.y = platform.y + platform.height + goo.rayon*0.5
+        goo.vy = - goo.vy*0
+
+    
 
 
 

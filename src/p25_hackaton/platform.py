@@ -21,6 +21,4 @@ class Platform:
 
 
     def contact(self, x, y):
-        y1=self.y-self.height
-        x1=self.x+self.width
-        return self.x<= x<= x1 and y1<= y <= self.y
+        return self.x <= x <= self.x + self.width and self.y <= y <= self.y + self.height

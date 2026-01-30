@@ -1,7 +1,7 @@
 import pygame 
 from .platform import Platform
 from .goo import Goo
-from .physique import verlet_integration_bis, spring_update
+from .physique import spring_update, euler_integration
 
 ## Coeff d'échelle pour l'affichage (en raisonne en mètre pour la modélisation physique)
 PIXELS_PER_METER = 1000
@@ -47,7 +47,7 @@ class Display:
 
     
     def update(self) -> None:
-        verlet_integration_bis(self.goos,0.016)
+        euler_integration(self.goos,0.016)
         spring_update(self.goos)
 
         self._clear()

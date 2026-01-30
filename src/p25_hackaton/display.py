@@ -2,6 +2,9 @@ import pygame
 from .platform import Platform
 from .goo import Goo
 
+## Coeff d'échelle pour l'affichage (en raisonne en mètre pour la modélisation physique)
+PIXELS_PER_METER = 1000
+
 class Display:
     def __init__(self, width : float, height :float, start : Platform, end : Platform, platforms : list[Platform], goos : list[Goo]) -> None:
         pygame.init()
@@ -22,16 +25,16 @@ class Display:
         self.screen.fill((255, 255, 255)) 
 
     def _add_goo(self, goo : Goo) -> None:
-        pygame.draw.circle(self.screen, (0, 0, 0), (goo.x, goo.y), goo.rayon)
+        pygame.draw.circle(self.screen, (0, 0, 0), (goo.x, goo.y), goo.rayon * PIXELS_PER_METER)
 
     def _add_platform(self, platform : Platform) -> None:
-        if platform.is_start:
+        if platform.start:
             color = (0, 255, 0)
-        elif platform.is_end:
+        elif platform.end:
             color = (255, 0, 0)
         else :
             color = (0, 0, 0)
-        pygame.draw.rect(self.screen, color, (platform.x, platform.y, platform.width, platform.height))
+        pygame.draw.rect(self.screen, color, (platform.x, platform.y, platform.width * PIXELS_PER_METER, platform.height * PIXELS_PER_METER))
 
     
     def update(self) -> None:

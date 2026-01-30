@@ -9,13 +9,7 @@ class Platform:
         self.start = start
         self.end = end
     
-    @property
-    def is_start(self) -> bool:
-        return self.start
-    @property
-    def is_end(self) -> bool:
-        return self.end
-    
+ 
     
     def distplat(self, x : float, y : float) -> float:
         bx = self.x + self.width/2

@@ -58,7 +58,7 @@ class Platform:
               if (-ux) < 0 :
                 return (self.x,y)
               else :
-                return (self.x+self.y)
+                return (self.x,self.y)
             else :
               if (-uy) < 0 :
                 return (x,self.y)

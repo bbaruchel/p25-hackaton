@@ -27,11 +27,11 @@ def force(goo1 : Goo):
     (fx,fy)=force_gravitation(goo1)
     for (g,r) in goo1.voisins :
         fx+=force_rappel_goo(goo1,g.x,g.y, r)[0]
-        fx+=force_rappel_goo(goo1,g.x,g.y, r)[1]
+        fy+=force_rappel_goo(goo1,g.x,g.y, r)[1]
     
     for (h,r) in goo1.platforms:
         fx+=force_rappel_goo(goo1,h.x,h.y, r)[0]
-        fx+=force_rappel_goo(goo1,h.x,h.y, r)[1]
+        fy+=force_rappel_goo(goo1,h.x,h.y, r)[1]
     return (fx,fy)
 
 def forces(goos):
@@ -51,7 +51,7 @@ def verlet_integration_bis(goos, delta_t):
         goos[i].vx,goos[i].vy = goos[i].vx + (A[i][0] + n_A[i][0])/2*delta_t, goos[i].vy + (A[i][1] + n_A[i][1])/2*delta_t
     
 def spring_update(goos) : 
-  visite = [False]*len(g)
+  visite = [False]*len(goos)
   for g in goos :
     if not (visite[g.id]) :
       todo = [g]

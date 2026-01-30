@@ -1,5 +1,5 @@
 class Spring():
-    def __init__(self,l_0 :float, l : float, k : float = 100, x0 :float = -1., y0 :float = -1.):
+    def __init__(self,l_0 :float, l : float, x0 :float = -1., y0 :float = -1., k : float = 100.) -> None:
         self.k = k
         self.l_0 = l_0
         self.distance = l

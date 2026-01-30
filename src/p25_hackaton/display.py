@@ -33,7 +33,7 @@ class Display:
             for (voisin, ressort) in g.voisins :
                 pygame.draw.line(self.screen, (0,0,0), (g.x*PIXELS_PER_METER, g.y*PIXELS_PER_METER), (voisin.x*PIXELS_PER_METER, voisin.y*PIXELS_PER_METER), 1)
             for (platform, ressort) in g.platforms :
-                p = platform.proj(g.x,g.y)
+                p = (ressort.x0, ressort.y0)
                 pygame.draw.line(self.screen, (0,0,0), (g.x*PIXELS_PER_METER, g.y*PIXELS_PER_METER), (p[0]*PIXELS_PER_METER, p[1]*PIXELS_PER_METER), 1)
 
     def _add_platform(self, platform : Platform) -> None:

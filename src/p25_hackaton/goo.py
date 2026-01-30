@@ -24,6 +24,7 @@ class Goo():
              d = p.distplat(self.x,self.y)
              if d <= self.dminp :
                  x0,y0 = p.proj(self.x,self.y)
+                 print(x0,y0)
                  r = Spring(d,d,x0,y0)
                  self.platforms.append((p,r))
     def dist(self, g) :

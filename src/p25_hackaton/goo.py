@@ -19,66 +19,9 @@ class Goo():
                  r = Spring(d,d)
                  self.voisins.append((g,r))
         for p in platforms :
-             d = self.distplat(p)
+             d = p.distplat(self.x,self.y)
              if d <= self.dminp :
                  r = Spring(d,d)
                  self.platforms.append((p,r))
     def dist(self, g) :
         return ((g.x-self.x)**2+(g.y-self.y)**2)**0.5
-    def distplat(self, platform) :
-        if self.x > platform.x + platform.width/2 : 
-          if self.y > platform.y + platform.height/2 :
-            ux = x - platform.x - platform.width
-            uy = y - platform.y - platform.height
-            if ux > uy :
-              if uy < 0 :
-                return abs(ux)
-              else :
-                return sqrt(ux**2+uy**2)
-            else :
-              if ux < 0 :
-                return abs(uy)
-              else :
-                return sqrt(ux**2+uy**2)
-          else    
-            ux = x - platform.x - platform.width
-            uy = y - platform.y
-            if ux > (-uy) :
-              if ux < 0 :
-                return abs(ux)
-              else :
-                return sqrt(ux**2+uy**2)
-            else :
-              if (-uy) < 0 :
-                return abs(uy)
-              else :
-                return sqrt(ux**2+uy**2)
-        else :
-          if self.y > platform.y + platform.height/2 :
-            ux = x - platform.x - platform.width
-            uy = y - platform.y - platform.height
-            if (-ux) > uy :
-              if uy < 0 :
-                return abs(ux)
-              else :
-                return sqrt(ux**2+uy**2)
-            else :
-              if (-ux) < 0 :
-                return abs(uy)
-              else :
-                return sqrt(ux**2+uy**2)
-          else    
-            ux = x - platform.x - platform.width
-            uy = y - platform.y
-            if (-ux) > (-uy) :
-              if (-ux) < 0 :
-                return abs(ux)
-              else :
-                return sqrt(ux**2+uy**2)
-            else :
-              if (-uy) < 0 :
-                return abs(uy)
-              else :
-                return sqrt(ux**2+uy**2)
-
-

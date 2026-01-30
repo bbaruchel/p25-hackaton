@@ -79,11 +79,14 @@ class Display:
                 return False
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 self.new_goo()
+        if self.win():
+            print("You win!")
+            return False
         return True
     
-    def win(goos) : 
-      visite = [False]*len(goos)
-      for g in goos :
+    def win(self) : 
+      visite = [False]*len(self.goos)
+      for g in self.goos :
         if not (visite[g.id]) :
           todo = [g]
           hasstart = False
@@ -97,7 +100,8 @@ class Display:
                 if p.end : hasend = True
               for (v,r) in s.voisins :
                 todo.append(v)
-          if hasstart && hasend : return True
+          if hasstart and  hasend : 
+            return True
       return False
 
     

@@ -6,9 +6,7 @@ from .goo import Goo
 def main() -> None:
     start : Platform = Platform(x=0.05, y=0.4, width=0.1, height=0.02, start=True, end=False)
     end : Platform = Platform(x=0.65, y=0.1, width=0.1, height=0.02, start=False, end=True)
-    platforms : list[Platform] = [
-        Platform(x=0.1, y=0.1, width=0.2, height=0.2, start=False, end=False),
-    ]
+    platforms : list[Platform] = [start, end]
 
     goos : list[Goo] = []
     

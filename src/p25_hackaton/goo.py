@@ -6,6 +6,22 @@ class Goo():
         self.speed = speed
         self.rayon = rayon
         self.masse = masse
+        self.dming = 0.2
+        self.dminp = 0.1
+        self.voisins = []
+        self.platforms = []
+        for g in goos :
+             d = self.dist(g)
+             if d <= self.dmin :
+                 voisins.append((g,d))
+        for p in platforms :
+             d = self.distplat(p)
+             if d <= self.dmin :
+                 voisins.append((p,d))
+    def dist(g) :
+        return sqrt((g.x-self.x)**2+(g.y-self.y)**2)
+    def distplat(platform) :
+        return 0.1
 
     
 

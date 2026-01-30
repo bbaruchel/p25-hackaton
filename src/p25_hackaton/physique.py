@@ -67,6 +67,13 @@ def spring_update(goos) :
             r.distance = ((s.x-v.x)**2+(s.y-v.y)**2)**(1/2)
             todo.append(v)
 
+def update_collision(goos: list["Goo"], platforms: list["Platform"]):
+   for g in goos:
+    for p in platforms :
+       if p.collision(g.x,g.y):
+          g.x, g.y = p.proj(g.x, g.y)
+
+      
 
 
 

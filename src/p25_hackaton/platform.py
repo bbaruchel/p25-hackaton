@@ -20,3 +20,7 @@ class Platform:
         return ((px - x)**2 + (py - y)**2)**0.5
 
 
+    def contact(self, x, y):
+        y1=self.y-self.height
+        x1=self.x+self.width
+        return self.x<= x<= x1 and y1<= y <= self.y

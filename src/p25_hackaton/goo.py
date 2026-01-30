@@ -19,11 +19,9 @@ class Goo():
                  r = Spring(d,d)
                  self.voisins.append((g,r))
         for p in platforms :
-             d = self.distplat(p)
+             d = p.distplat(self.x,self.y)
              if d <= self.dminp :
                  r = Spring(d,d)
                  self.platforms.append((p,r))
     def dist(self, g) :
         return ((g.x-self.x)**2+(g.y-self.y)**2)**0.5
-    def distplat(self, platform) :
-        return 0.1

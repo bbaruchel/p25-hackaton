@@ -18,25 +18,25 @@ class Platform:
               if uy < 0 :
                 return abs(ux)
               else :
-                return sqrt(ux**2+uy**2)
+                return (ux**2+uy**2)**0.5
             else :
               if ux < 0 :
                 return abs(uy)
               else :
-                return sqrt(ux**2+uy**2)
-          else    
+                return (ux**2+uy**2)**0.5
+          else : 
             ux = x - self.x - self.width
             uy = y - self.y
             if ux > (-uy) :
               if ux < 0 :
                 return abs(ux)
               else :
-                return sqrt(ux**2+uy**2)
+                return (ux**2+uy**2)**0.5
             else :
               if (-uy) < 0 :
                 return abs(uy)
               else :
-                return sqrt(ux**2+uy**2)
+                return (ux**2+uy**2)**0.5
         else :
           if y > self.y + self.height/2 :
             ux = x - self.x - self.width
@@ -45,24 +45,24 @@ class Platform:
               if uy < 0 :
                 return abs(ux)
               else :
-                return sqrt(ux**2+uy**2)
+                return (ux**2+uy**2)**0.5
             else :
               if (-ux) < 0 :
                 return abs(uy)
               else :
-                return sqrt(ux**2+uy**2)
-          else    
+                return (ux**2+uy**2)**0.5
+          else :  
             ux = x - self.x - self.width
             uy = y - self.y
             if (-ux) > (-uy) :
               if (-ux) < 0 :
                 return abs(ux)
               else :
-                return sqrt(ux**2+uy**2)
+                return (ux**2+uy**2)**0.5
             else :
               if (-uy) < 0 :
                 return abs(uy)
               else :
-                return sqrt(ux**2+uy**2)
+                return (ux**2+uy**2)**0.5
 
 

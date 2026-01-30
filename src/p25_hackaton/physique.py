@@ -91,6 +91,13 @@ def spring_update(goos) :
               v.voisins=list(filter(lambda gr : gr[0].id != s.id,v.voisins))
             todo.append(v)
 
+def update_collision(goos: list["Goo"], platforms: list["Platform"]):
+   for g in goos:
+    for p in platforms :
+       if p.collision(g.x,g.y):
+          g.x, g.y = p.proj(g.x, g.y)
+
+      
 
 
 

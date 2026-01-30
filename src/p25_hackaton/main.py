@@ -17,5 +17,5 @@ def main() -> None:
     while running:
         running = display.handle_events()
         display.update()
-    display.close()
 
+    display.close()

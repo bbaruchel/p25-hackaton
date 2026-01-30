@@ -67,7 +67,7 @@ class Display:
 
     def new_goo(self) -> None:
         mouse_x, mouse_y = pygame.mouse.get_pos()
-        new_goo = Goo(position_x=mouse_x/PIXELS_PER_METER, position_y=mouse_y/PIXELS_PER_METER,goos = self.goos, platforms=self.platforms)
+        new_goo = Goo(len(goos), position_x=mouse_x/PIXELS_PER_METER, position_y=mouse_y/PIXELS_PER_METER,goos = self.goos, platforms=self.platforms)
         self.goos.append(new_goo)
 
     def handle_events(self) -> bool:

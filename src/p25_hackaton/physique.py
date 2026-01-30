@@ -1,4 +1,5 @@
 from .goo import Goo
+from .platform import Platform
 
 import numpy as np
 #gravité 
@@ -49,6 +50,23 @@ def verlet_integration_bis(goos, delta_t):
     for i in range(len(goos)):
         goos[i].vx,goos[i].vy = goos[i].vx + (A[i][0] + n_A[i][0])/2*delta_t, goos[i].vy + (A[i][1] + n_A[i][1])/2*delta_t
     
+def spring_update(goos) : 
+  visite = [False]*len(g)
+  for g in goos :
+    if not (visite[g.id]) :
+      todo = [g]
+      while len(todo) != 0 :
+        s = todo.pop()
+        if not visite[s.id] :
+          visite[s.id] = True
+          for (p,r) in s.platforms :
+            x,y = p.proj(s.x,s.y)
+            r.distance = ((s.x-x)**2+(s.y-y)**2)**(1/2)
+          for (v,r) in s.voisins :
+            r.distance = ((s.x-v.x)**2+(s.y-v.y)**2)**(1/2)
+            todo.append(v)
+
+
 
 
 

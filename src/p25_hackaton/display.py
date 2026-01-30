@@ -81,6 +81,26 @@ class Display:
                 self.new_goo()
         return True
     
+    def win(goos) : 
+      visite = [False]*len(goos)
+      for g in goos :
+        if not (visite[g.id]) :
+          todo = [g]
+          hasstart = False
+          hasend = False
+          while len(todo) != 0 :
+            s = todo.pop()
+            if not visite[s.id] :
+              visite[s.id] = True
+              for (p,r) in s.platforms :
+                if p.start : hasstart = True
+                if p.end : hasend = True
+              for (v,r) in s.voisins :
+                todo.append(v)
+          if hasstart && hasend : return True
+      return False
+
+    
 
 
 

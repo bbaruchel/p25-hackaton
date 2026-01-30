@@ -7,7 +7,9 @@ authors = [
     { name = "rom1922", email = "romain.s.giunta@gmail.com" }
 ]
 requires-python = ">=3.12"
-dependencies = []
+dependencies = [
+    "pygame>=2.6.1",
+]
 
 [project.scripts]
 p25-hackaton = "p25_hackaton.main:main"

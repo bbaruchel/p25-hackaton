@@ -23,6 +23,11 @@ def force_rappel_goo(goo1: Goo, x,  y,ressort : Spring): #on considère que c'es
     f = -k*(d-l0)
     return (f*(goo1.x-x)/d,f*(goo1.y-y)/d)
 
+#force de frottement visqueux pour atténuer les oscillations
+def force_frottement(goo1 : Goo):
+    mu = 0.1
+    return (-mu*goo1.vx,-mu*goo1.vy)
+
 def force(goo1 : Goo): 
     "Renvoie la résultante"
     (fx,fy)=force_gravitation(goo1)
@@ -33,6 +38,11 @@ def force(goo1 : Goo):
     for (h,r) in goo1.platforms:
         fx+=force_rappel_goo(goo1,r.x0,r.y0, r)[0]
         fy+=force_rappel_goo(goo1,r.x0,r.y0, r)[1]
+    
+    (fxt,fyt)=force_frottement(goo1)
+    fx+=fxt
+    fy+=fyt
+    
     return (fx,fy)
 
 def forces(goos):

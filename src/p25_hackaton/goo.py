@@ -20,8 +20,8 @@ class Goo():
              if d <= self.dming :
                  r = Spring(d,d)
                  self.voisins.append((g,r))
-             for v in self.voisins :
-               v.voisins.append(g)
+             for v, r in self.voisins :
+               v.voisins.append((self,r))
         for p in platforms :
              d = p.distplat(self.x,self.y)
              if d <= self.dminp :

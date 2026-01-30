@@ -1,6 +1,6 @@
 from goo import Goo
 from platform import Platform
-
+import numpy as np
 #gravité 
 g=0.49
 
@@ -33,21 +33,28 @@ def force(goo1):
         fx+=force_rappel_goo(goo1,h[0],h[1], r)[1]
     return (fx,fy)
 
+def forces(goos):
+    F=[]
+    for i in range(len(goos)):
+        F.append(force(goos[i]))
+    return F
 
 
-
-
-def verlet_integration(goo:Goo, initial_point, initial_velocity, delta_t):
-    a_x,a_y= force(goo)/masse_goo
-    x,y = initial_point
-    v_x, v_y = initial_velocity
-
+def verlet_integration_bis(goos, initial_points, initial_velocities, delta_t):
+    A_x, A_y = np.array(force(goos)/masse_goo)
     #Mise à jour
-    n_x,n_y = x+ v_x* delta_t + 1/2*a_x*delta_t**2, y+ v_y * delta_t + 1/2*a_y*delta_t**2
+    for i in range(len(goos)): 
+        goos[i].x,goos[i].y = goos[i].x +goos[i].vx * delta_t + 1/2*A_x[i]*delta_t**2, goos[i].x+ goos[i].y * delta_t + 1/2*A_y[i]*delta_t**2
+    n_Ax, n_Ay = forces(goos)/masse_goo
 
-    n_ax,n_ay = force(n_x,n_y)/masse_goo
+    for i in range(len(goos)):
+        goos[i].vx,goos[i].vy = goos[i].vx + (A_x[i] + n_Ax[i])/2*delta_t, goos[i].vy + (A_y[i] + n_Ay[i])/2*delta_t
+    
+    return(goos, n_Ax,n_Ay )
 
-    n_vx,n_vy = v_x + (a_x + n_ax)/2*delta_t
 
-    return (n_x ,n_y ,n_vx ,n_vy ,n_ax ,n_ay )
+
+
+
+
 

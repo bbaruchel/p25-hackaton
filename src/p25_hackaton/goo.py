@@ -2,11 +2,12 @@ from .platform import Platform
 from .spring import Spring
 
 class Goo():
-    def __init__(self, position_x: float, position_y: float,goos : list["Goo"], platforms : list[Platform], speed: float = 1.0, rayon:float= 0.01, masse: float= 0.4):
+    def __init__(self, position_x: float, position_y: float,goos : list["Goo"], platforms : list[Platform], rayon:float= 0.01, masse: float= 0.4):
         
         self.x = position_x
         self.y = position_y
-        self.speed = speed
+        self.vx = 0
+        self.vy = 0
         self.rayon = rayon
         self.masse = masse
         self.dming = 0.2

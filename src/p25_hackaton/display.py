@@ -9,13 +9,13 @@ class Display:
     def __init__(self, width : float, height :float, start : Platform, end : Platform, platforms : list[Platform], goos : list[Goo]) -> None:
         pygame.init()
 
-        self.width = width
-        self.height = height
+        self.width = width*PIXELS_PER_METER
+        self.height = height*PIXELS_PER_METER
         self.start = start
         self.end = end
         self.platforms = platforms
         self.goos = goos
-        self.screen = pygame.display.set_mode((width, height))
+        self.screen = pygame.display.set_mode((self.width, self.height))
         pygame.display.set_caption("World of Goos")
         self.clock = pygame.time.Clock()
 
@@ -25,7 +25,14 @@ class Display:
         self.screen.fill((255, 255, 255)) 
 
     def _add_goo(self, goo : Goo) -> None:
-        pygame.draw.circle(self.screen, (0, 0, 0), (goo.x, goo.y), goo.rayon * PIXELS_PER_METER)
+        pygame.draw.circle(self.screen, (0, 0, 0), (goo.x*PIXELS_PER_METER, goo.y*PIXELS_PER_METER), goo.rayon * PIXELS_PER_METER)
+
+    def _draw_spring(self) -> None:
+        for g in self.goos : 
+            for (voisin, ressort) in g.voisins :
+                pygame.draw.line(self.screen, (0,0,0), (g.x*PIXELS_PER_METER, g.y*PIXELS_PER_METER), (voisin.x*PIXELS_PER_METER, voisin.y*PIXELS_PER_METER), 1)
+            for (platform, ressort) in g.platforms :
+                pygame.draw.line(self.screen, (0,0,0), (g.x*PIXELS_PER_METER, g.y*PIXELS_PER_METER), ((platform.x + platform.width/2)*PIXELS_PER_METER, (platform.y + platform.height/2)*PIXELS_PER_METER), 1)
 
     def _add_platform(self, platform : Platform) -> None:
         if platform.start:
@@ -34,7 +41,7 @@ class Display:
             color = (255, 0, 0)
         else :
             color = (0, 0, 0)
-        pygame.draw.rect(self.screen, color, (platform.x, platform.y, platform.width * PIXELS_PER_METER, platform.height * PIXELS_PER_METER))
+        pygame.draw.rect(self.screen, color, (platform.x*PIXELS_PER_METER, platform.y*PIXELS_PER_METER, platform.width * PIXELS_PER_METER, platform.height * PIXELS_PER_METER))
 
     
     def update(self) -> None:
@@ -45,6 +52,9 @@ class Display:
         
         for g in self.goos :
             self._add_goo(g)
+        
+        self._draw_spring()
+
         pygame.display.flip()
         self.clock.tick(60)
 
@@ -55,7 +65,7 @@ class Display:
 
     def new_goo(self) -> None:
         mouse_x, mouse_y = pygame.mouse.get_pos()
-        new_goo = Goo(position_x=mouse_x, position_y=mouse_y,goos = self.goos, platforms=self.platforms)
+        new_goo = Goo(position_x=mouse_x/PIXELS_PER_METER, position_y=mouse_y/PIXELS_PER_METER,goos = self.goos, platforms=self.platforms)
         self.goos.append(new_goo)
 
     def handle_events(self) -> bool:

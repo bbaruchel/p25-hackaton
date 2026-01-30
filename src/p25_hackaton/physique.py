@@ -3,11 +3,12 @@ from .platform import Platform
 from .spring import Spring
 
 import numpy as np
+
 #gravité 
 g= - 0.49
 
 #distance attachement goo
-l=0.01
+
 masse_goo=0.4
 
 def force_gravitation(goo: Goo):

@@ -108,8 +108,10 @@ class Display:
             if not visite[s.id] :
               visite[s.id] = True
               for (p,r) in s.platforms :
-                if p.start : hasstart = True
-                if p.end : hasend = True
+                if p.start :
+                    hasstart = True
+                if p.end : 
+                    hasend = True
               for (v,r) in s.voisins :
                 todo.append(v)
           if hasstart and  hasend : 

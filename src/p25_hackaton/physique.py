@@ -69,6 +69,7 @@ def euler_integration(goos, delta_t):
         goos[i].x, goos[i].y = goos[i].x + goos[i].vx * delta_t, goos[i].y + goos[i].vy * delta_t
 
 
+seuil = 0.2
 def spring_update(goos) : 
   visite = [False]*len(goos)
   for g in goos :
@@ -81,8 +82,13 @@ def spring_update(goos) :
           for (p,r) in s.platforms :
             x,y = r.x0,r.y0
             r.distance = ((s.x-x)**2+(s.y-y)**2)**(1/2)
+            if r.distance > seuil :
+              s.platforms=list(filter(lambda pr : not (pr[0].x == p.x and  pr[0].y == p.y),s.platforms))
           for (v,r) in s.voisins :
             r.distance = ((s.x-v.x)**2+(s.y-v.y)**2)**(1/2)
+            if r.distance > seuil :
+              s.voisins=list(filter(lambda gr : gr[0].id != v.id,s.voisins))
+              v.voisins=list(filter(lambda gr : gr[0].id != s.id,v.voisins))
             todo.append(v)
 
 
